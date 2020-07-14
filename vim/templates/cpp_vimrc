@@ -1,0 +1,21 @@
+" Src: https://www.alexeyshmalko.com/2014/using-vim-as-c-cpp-ide/
+
+" Compile
+set makeprg=make\ -C\ ../build\ -j3
+" ! mark prevents Vim from jumping to location of first error found
+nnoremap <F4> :make!<cr>
+
+" Launch
+nnoremap <F5> :!./my_great_program<cr>
+
+set colorcolumn=110
+
+" Filetype detection
+augroup project
+  autocmd!
+  autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+augroup END
+
+" Source for gf command
+" let &path.="src/include,/usr/include/AL,"
+let &path.="src/include,"

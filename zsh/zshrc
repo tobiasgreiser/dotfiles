@@ -1,0 +1,197 @@
+# If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to dotfiles
+export DOTFILES="$HOME/dotfiles"
+
+# Path to your oh-my-zsh installation.
+export ZSH="$DOTFILES/zsh/oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="agnoster"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+#ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+#
+# zsh-autosuggestions
+# cd $ZSH_CUSTOM/plugins
+# git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# ( cd $ZSH_CUSTOM/plugins && git clone https://github.com/chrissicool/zsh-256color )
+plugins=(
+    git
+    zsh-autosuggestions
+    zsh-navigation-tools
+    fzf-tab
+    zsh-256color
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# iTerm 2 Setup
+# https://gist.github.com/kevin-smets/8568070
+# https://github.com/MartinSeeler/iterm2-material-design
+DEFAULT_USER=$(whoami)
+
+# Aliases
+alias r=ranger v=vim vi=vim :q=exit
+alias gc="git pull && git commit"
+alias wiki="vim -c VimwikiIndex"
+
+alias "cd ..."=   "cd ../.."
+alias "cd ...."=  "cd ../../.."
+alias "cd ....."= "cd ../../../.."
+alias "cd ......"="cd ../../../../.."
+
+#bash -c "i3-msg border pixel 1" > /dev/null
+# i3-wm settings
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    bash -c "i3-msg border pixel 1" &> /dev/null
+fi
+
+# Source vim
+export VIMINIT='source $MYVIMRC'
+export MYVIMRC='~/dotfiles/vim/vimrc'
+
+# Load tmux conf
+# alias tmux="tmux -u -f ~/dotfiles/tmux/tmux.conf"
+alias tmux="tmux -u"
+alias t=tmux
+
+# Fzf
+# https://github.com/junegunn/fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# vim mode
+bindkey -v
+
+# allow ctrl-h, ctrl-w, ctrl-? for char and word deletion (standard behaviour)
+bindkey '^?' backward-delete-char
+bindkey '^x' backward-delete-char
+bindkey '^l' vi-forward-char
+bindkey '^h' vi-backward-char
+bindkey '^f' vi-forward-word
+bindkey '^b' vi-backward-word
+bindkey '^k' history-substring-search-up
+bindkey '^j' history-substring-search-down
+bindkey '^d' backward-kill-word
+
+bindkey '^ ' autosuggest-execute
+
+# allow ctrl-a and ctrl-e to move to beginning/end of line
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+# bindkey "${terminfo[khome]}" beginning-of-line
+# bindkey "${terminfo[kend]}" end-of-line
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+
+#bindkey '^[[A' history-substring-search-up
+##bindkey '^[[B' history-substring-search-down
+# https://superuser.com/a/1079579/913345
+# Search backwards and forwards with a pattern, -M setting mode
+bindkey -M vicmd '/' history-incremental-pattern-search-backward
+bindkey -M vicmd '?' history-incremental-pattern-search-forward
+# set up for insert mode too
+bindkey -M viins '^R' history-incremental-pattern-search-backward
+# S: search
+bindkey -M viins '^S' history-incremental-pattern-search-forward
+
+# vi-mode, fzf and fzf-tab must in order:
+# fzf remap ^T, ^I of vi-mode
+# fzf-tab remap fzf ^T
+# https://github.com/junegunn/fzf/wiki/Configuring-fuzzy-completion#caveats
+# source /usr/share/fzf/completion.zsh
+# source /usr/share/fzf/key-bindings.zsh
+export FZF_COMPLETION_TRIGGER=''
+bindkey '^T' fzf-completion
+bindkey '^I' $fzf_default_completion
+
+#source $HOME/.zshrc.d/plugins/fzf-tab/fzf-tab.plugin.zsh
+bindkey '^T' toggle-fzf-tab
+
+source ~/.zshenv
